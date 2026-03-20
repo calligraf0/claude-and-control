@@ -11,11 +11,11 @@ The security community is still catching up with what agentic AI tooling actuall
 
 Claude Code is, functionally, a [LOLBin](https://lolbas-project.github.io/) — a legitimate, trusted binary with broad system access that security teams haven't yet learned to scrutinize. 
 The conditions that make it useful are the same ones that make it dangerous:
-- **Developer machines are high-value targets.** Credentials, secrets, source code, production access — it's all there. Compromising a dev environment is often more valuable than compromising a server.
-- **The trust is implicit and broad.** Users grant wide filesystem and execution permissions because the tool needs them to work. There's no suspicion attached to that, it's just the expected setup.
+- **Developer machines are high-value targets.** Credentials, secrets, source code, production access — it's all there. 
+- **The trust is implicit and broad.** Users grant wide filesystem and execution permissions because the tool needs them to work.
 - **Adoption is outpacing awareness.** Teams are rolling out agentic tools fast, often without security fully understanding their network footprint, persistence mechanisms, or what remote-control features even exist.
-- **It's invisible at the network layer.** Malicious sessions are essentially indistinguishable from legitimate Claude Code traffic — it all goes to Anthropic's infrastructure. You wouldn't block it, and even if you wanted to, you couldn't do so selectively. claude.ai is a productivity tool, not a threat indicator.
-- **It blends at the process level too.** A Node process talking to Anthropic is completely expected. Nothing here looks anomalous without prior knowledge of the attack pattern.
+- **It's invisible at the network layer.** Malicious sessions are essentially indistinguishable from legitimate Claude Code traffic — it all goes to Anthropic's infrastructure.
+- **It blends at the process level too.** A Node process runninc claude code and talking to Anthropic is completely expected. Nothing here looks anomalous without prior knowledge of the attack pattern.
 
 The goal of this PoC is to make defenders uncomfortable enough to start asking the right questions about what they're actually trusting when they let an AI agent run on their infrastructure.
 

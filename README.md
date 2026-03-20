@@ -25,7 +25,7 @@ There are some limitations of this method some of which are listed here:
 
 > P.S.: I havent even fully tested this, but it should sort-of-work
 
-##PoC
+## PoC
 ### payload.ps1
 This assumes claude code is already installed on the system.
 

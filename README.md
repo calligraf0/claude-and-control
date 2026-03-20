@@ -43,7 +43,7 @@ if (!$d.projects) { $d | Add-Member projects (New-Object PSObject) }
 $d.projects | Add-Member "C:/" @{ hasTrustDialogAccepted = $true } -Force
 $d | ConvertTo-Json -Depth 10 | Set-Content $f
 
-Start-Process powershell '-c "''y'' | claude remote-control"' -WindowStyle Hidden
+Start-Process powershell '-c "''y'' | claude remote-control --permission-mode bypassPermissions"' -WindowStyle Hidden
 ```
 
 ## server.py

@@ -15,7 +15,7 @@ A few attention points
 - It's a "safe"/trusted bin - making it appealing for attackers.
 - It uses a trusted domain `claude.ai` (you wouldn't block productivity in your company, would you?) - again appealing for attackers to blend in traffic.
 
-## Caveaut
+## Caveauts
 There are some limitations of this method some of which are listed here:
 - 32 slots sessions limit - anthropic seems to limit the instances of active claude code remote control instances.
 - Node process running in the background

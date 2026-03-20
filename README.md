@@ -6,6 +6,8 @@ so I thought it would be interesting to turn it into a C2, so here it is!
 
 You can now talk to your bots! In real time! From anywhere! 
 
+> This is for awareness and educational purposes only. 
+
 ## Why?
 The security community is still catching up with what agentic AI tooling actually means as an attack surface.
 
